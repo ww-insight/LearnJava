@@ -38,19 +38,24 @@ public class QuizCardPlayer {
         display.setFont(bigFont);
         display.setLineWrap(true);
         display.setEditable(false);
+
         JScrollPane qScroller = new JScrollPane(display);
         qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         nextButton = new JButton("Show Question");
         mainPanel.add(qScroller);
         mainPanel.add(nextButton);
         nextButton.addActionListener(new NextCardListener());
+
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem loadMenuItem = new JMenuItem("Load card set");
+
         loadMenuItem.addActionListener(new OpenMenuListener());
         fileMenu. add (loadMenuItem);
         menuBar. add (fileMenu);
+
         frame.setJMenuBar(menuBar);
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setSize(640,500);
