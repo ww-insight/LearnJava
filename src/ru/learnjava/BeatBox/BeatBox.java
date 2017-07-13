@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -166,6 +167,50 @@ public class BeatBox {
             }
         }
     }
+
+    public class MySendListener implements ActionListener {
+        public void actionPerformed(ActionEvent a) {
+
+            boolean[] checkboxState = new boolean[256];
+            for (int i = 0; i < 256; i++) {
+                JCheckBox check = (JCheckBox) checkBoxList.get(i);
+                if (check.isSelected()) {
+                    checkboxState[i] = true;
+                }
+            }
+            try {
+                FileOutputStream fileStream = new FileOutputStream(new File("Checkbox.ser"));
+                ObjectOutputStream os = new ObjectOutputStream(fileStream);
+                os.writeObject(checkboxState);
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public class MyReadInListener implements ActionListener {
+        public void actionPerformed(ActionEvent a) {
+            boolean[] checkboxState = new boolean[256];
+
+            try {
+                FileInputStream fileStream = new FileInputStream(new File("Checkbox.ser"));
+                ObjectInputStream is = new ObjectInputStream(fileStream);
+                checkboxState = (boolean[]) is.readObject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            for (int i = 0; i < 256; i++) {
+                checkBoxList.get(i).setSelected(checkboxState[i]);
+            }
+
+            sequencer.stop();
+            buildTrackAndStart();
+        }
+    }
+
 
     public void makeTracks(int[] list){
         for (int i = 0; i< 16; i++){
