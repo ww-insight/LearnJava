@@ -31,7 +31,7 @@ public class RyanAndMonicaJob implements Runnable {
 
     private synchronized void makeWithdarwal(int amount){
         if (account.getBalance() >= amount){
-            System.out.println(Thread.currentThread().getName() + " is about to make a withdrawal");
+                System.out.println(Thread.currentThread().getName() + " is about to make a withdrawal");
             try{
                 System.out.println(Thread.currentThread().getName() + " go sleep");
                 Thread.sleep(500);
